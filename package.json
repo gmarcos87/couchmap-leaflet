@@ -1,0 +1,36 @@
+{
+  "name": "couchmap-backbone-leaflet",
+  "version": "0.1.0",
+  "description": "backbone leaflet views for couchmap",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/libremap/couchmap-backbone-leaflet.git"
+  },
+  "keywords": [
+    "couchmap",
+    "couchdb",
+    "geocouch",
+    "backbone",
+    "leaflet"
+  ],
+  "author": "André Gaul <gaul@web-yard.de>",
+  "license": "GPLv3",
+  "bugs": {
+    "url": "https://github.com/libremap/couchmap-backbone-leaflet/issues"
+  },
+  "dependencies": {
+    "couchmap-common": "libremap/couchmap-common",
+    "couchmap-backbone": "libremap/couchmap-backbone",
+    "underscore": "~1.5.2",
+    "backbone": "~1.1.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.4",
+    "grunt-jasmine-node": "~0.1.0"
+  }
+}
