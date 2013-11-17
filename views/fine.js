@@ -6,8 +6,8 @@ var Lmarkercluster = require('leaflet-markercluster');
 module.exports = Backbone.View.extend({
   FineMarkerView: require('./fineMarker'),
   initialize: function(options) {
-    this.mapView = options.mapView;
-    this.layer = L.markerClusterGroup().addTo(this.mapView.map);
+    this.proxyView = options.proxyView;
+    this.layer = L.markerClusterGroup().addTo(this.proxyView.mapView.map);
     this.subviews = {};
     this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addModel);
@@ -32,7 +32,7 @@ module.exports = Backbone.View.extend({
   },
   remove: function() {
     _.each(this.subviews, this.removeModel, this);
-    this.mapView.map.removeLayer(this.layer);
+    this.proxyView.mapView.map.removeLayer(this.layer);
   }
 });
 

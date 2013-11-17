@@ -3,17 +3,17 @@ _ = require('underscore');
 var L = require('leaflet');
 var common = require('couchmap-common');
 
+/* options:
+   mapView: mandatory, the mapView (mapView.map has to be the leaflet object)
+*/
 module.exports = Backbone.View.extend({
   initialize: function(options) {
+    this.options = options;
+    this.mapView = options.mapView;
     this.CoarseView = options.CoarseView || require('./coarse');
     this.FineView = options.FineView || require('./fine');
 
-    // create map and add OpenStreetMap tile layer
-    this.map = L.map(this.el, {center: [10, 0], zoom: 2} );
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-      }).addTo(this.map);
-    this.map.on('moveend', this.update_bbox, this);
+    this.mapView.map.on('moveend', this.update_bbox, this);
 
     this.listenTo(this.model, {
       'fine': this.render.bind(this, 'fine'),
@@ -22,8 +22,8 @@ module.exports = Backbone.View.extend({
     this.update_bbox();
   },
   update_bbox: function() {
-    var bbox = common.bbox(this.map.getBounds());
-    var zoom = common.validate_zoom(this.map.getZoom()+1);
+    var bbox = common.bbox(this.mapView.map.getBounds());
+    var zoom = common.validate_zoom(this.mapView.map.getZoom()+1);
     this.trigger('bbox', bbox, zoom);
     this.model.update(bbox, zoom);
   },
@@ -35,12 +35,12 @@ module.exports = Backbone.View.extend({
       }
       if (this.mode=='coarse') {
         this.subview = new this.CoarseView(_.extend(this.coarse_options || {}, {
-          mapView: this,
+          proxyView: this,
           collection: this.model.get('coarse_coll')
         }));
       } else {
         this.subview = new this.FineView(_.extend(this.fine_options || {}, {
-          mapView: this,
+          proxyView: this,
           collection: this.model.get('fine_coll')
         }));
       }

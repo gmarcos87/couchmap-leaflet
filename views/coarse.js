@@ -7,9 +7,11 @@ var common = require('couchmap-common');
 module.exports = Backbone.View.extend({
   CoarseMarkerView: require('./coarseMarker'),
   initialize: function(options) {
-    this.mapView = options.mapView;
-    this.bbox = common.bbox(this.mapView.map.getBounds());
-    this.zoom = common.validate_zoom(this.mapView.map.getZoom()+1);
+    this.proxyView = options.proxyView;
+    var map = this.proxyView.mapView.map;
+
+    this.bbox = common.bbox(map.getBounds());
+    this.zoom = common.validate_zoom(map.getZoom()+1);
     this.layer = L.markerClusterGroup(
       {
         showCoverageOnHover: false,
@@ -23,10 +25,10 @@ module.exports = Backbone.View.extend({
           return this.iconCreate(count);
         }.bind(this)
       })
-      .addTo(this.mapView.map)
+      .addTo(map)
       .on('click', function(a) {
         var model = a.layer.options.view.model;
-        this.mapView.map.fitBounds([
+        map.fitBounds([
           [model.get('bbox_south'), model.get('bbox_west')],
           [model.get('bbox_north'), model.get('bbox_east')]
           ]);
@@ -39,7 +41,7 @@ module.exports = Backbone.View.extend({
         var east = _.max(_.map(models, function(model) { return model.get('bbox_east'); }));
         var south = _.min(_.map(models, function(model) { return model.get('bbox_south'); }));
         var north = _.max(_.map(models, function(model) { return model.get('bbox_north'); }));
-        this.mapView.map.fitBounds([
+        map.fitBounds([
           [south, west],
           [north, east]
           ]);
@@ -48,7 +50,7 @@ module.exports = Backbone.View.extend({
 
     this.markers = {};
 
-    this.listenTo(this.mapView, 'bbox', function(bbox, zoom) {
+    this.listenTo(this.proxyView, 'bbox', function(bbox, zoom) {
       this.bbox = bbox;
       if (this.zoom!=zoom) {
         this.zoom = zoom;
@@ -103,6 +105,6 @@ module.exports = Backbone.View.extend({
       marker.remove();
     });
     this.markers = {};
-    this.mapView.map.removeLayer(this.layer);
+    this.proxyView.mapView.map.removeLayer(this.layer);
   }
 });
