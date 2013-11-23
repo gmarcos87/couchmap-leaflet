@@ -9,7 +9,6 @@ module.exports = Backbone.View.extend({
     this.proxyView = options.proxyView;
     this.layer = L.markerClusterGroup().addTo(this.proxyView.mapView.map);
     this.subviews = {};
-    this.listenTo(this.collection, 'sync', this.render);
     this.listenTo(this.collection, 'add', this.addModel);
     this.listenTo(this.collection, 'remove', this.removeModel);
     this.render();

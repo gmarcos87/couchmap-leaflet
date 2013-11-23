@@ -17,7 +17,10 @@ module.exports = Backbone.View.extend({
       .addTo(this.layer);
   },
   remove: function() {
-    this.layer.removeLayer(this.marker);
+    if (this.marker) {
+      this.layer.removeLayer(this.marker);
+      this.marker = undefined;
+    }
   }
 });
 
