@@ -1,5 +1,5 @@
 {
-  "name": "couchmap-backbone-leaflet",
+  "name": "couchmap-leaflet",
   "version": "0.1.0",
   "description": "backbone leaflet views for couchmap",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/libremap/couchmap-backbone-leaflet.git"
+    "url": "git://github.com/libremap/couchmap-leaflet.git"
   },
   "keywords": [
     "couchmap",
@@ -20,7 +20,7 @@
   "author": "André Gaul <gaul@web-yard.de>",
   "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/libremap/couchmap-backbone-leaflet/issues"
+    "url": "https://github.com/libremap/couchmap-leaflet/issues"
   },
   "dependencies": {
     "couchmap-common": "libremap/couchmap-common",
