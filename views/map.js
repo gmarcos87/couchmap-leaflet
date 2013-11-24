@@ -11,7 +11,7 @@ var L = require('leaflet');
 */
 module.exports = Backbone.View.extend({
   initialize: function(options) {
-    this.map = L.map(this.el);
+    this.map = L.map(this.el, options.mapOptions||{});
     options = _.extend({
       addDefaultLayer: true,
       zoomTo: 'world'
