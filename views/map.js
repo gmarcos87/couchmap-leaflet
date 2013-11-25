@@ -34,6 +34,19 @@ module.exports = Backbone.View.extend({
         this.map.fitBounds(options.zoomTo);
       }
     }
+
+    //handle zoomlevelschange (if layers are added/removed)
+    this.map.on('zoomlevelschange', function(e) {
+      var zoom = this.map.getZoom();
+      var min_zoom = this.map.getMinZoom();
+      var max_zoom = this.map.getMaxZoom();
+      if (zoom<min_zoom) {
+        this.map.setZoom(min_zoom);
+      }
+      if (zoom>max_zoom) {
+        this.map.setZoom(max_zoom);
+      }
+    }.bind(this));
   },
   remove: function() {
     this.map.remove();
