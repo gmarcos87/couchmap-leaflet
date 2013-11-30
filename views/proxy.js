@@ -30,9 +30,7 @@ module.exports = Backbone.View.extend({
   render: function(mode) {
     if (this.mode!=mode) {
       this.mode = mode;
-      if (this.subview) {
-        this.subview.remove();
-      }
+      this.removeSubviews();
       if (this.mode=='coarse') {
         this.subview = new this.CoarseView(_.extend(this.coarse_options || {}, {
           proxyView: this,
@@ -46,9 +44,13 @@ module.exports = Backbone.View.extend({
       }
     }
   },
-  remove: function() {
+  removeSubviews: function() {
     if (this.subview) {
       this.subview.remove();
     }
+  },
+  remove: function() {
+    this.removeSubviews();
+    Backbone.View.prototype.remove.call(this);
   }
 });

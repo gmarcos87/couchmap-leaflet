@@ -100,11 +100,15 @@ module.exports = Backbone.View.extend({
       delete this.markers[id];
     }
   },
-  remove: function() {
+  removeSubviews: function() {
     _.each(this.markers, function(marker, id) {
       marker.remove();
     });
     this.markers = {};
     this.proxyView.mapView.map.removeLayer(this.layer);
+  },
+  remove: function() {
+    this.removeSubviews();
+    Backbone.View.prototype.remove.call(this);
   }
 });

@@ -8,19 +8,21 @@ module.exports = Backbone.View.extend({
     this.render();
   },
   render: function() {
-    if (this.marker) {
-      this.remove();
-    }
+    this.removeMarker();
     this.marker = L.marker([this.model.get('lat'), this.model.get('lon')],{
       title: this.model.id
     })
       .addTo(this.layer);
   },
-  remove: function() {
+  removeMarker: function() {
     if (this.marker) {
       this.layer.removeLayer(this.marker);
       this.marker = undefined;
     }
+  },
+  remove: function() {
+    this.removeMarker();
+    Backbone.View.prototype.remove.call(this);
   }
 });
 

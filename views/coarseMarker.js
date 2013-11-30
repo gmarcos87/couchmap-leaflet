@@ -9,7 +9,7 @@ module.exports = Backbone.View.extend({
     this.render();
   },
   render: function() {
-    this.remove();
+    this.removeMarker();
     var count = this.model.get('count');
     this.marker = L.marker([this.model.get('lat'), this.model.get('lon')],{
       icon: this.iconCreate(count),
@@ -18,9 +18,13 @@ module.exports = Backbone.View.extend({
       .addTo(this.layer);
     this.marker.view = this;
   },
-  remove: function() {
+  removeMarker: function() {
     if (this.marker) {
       this.layer.removeLayer(this.marker);
     }
+  },
+  remove: function() {
+    this.removeMarker();
+    Backbone.View.prototype.remove.call(this);
   }
 });

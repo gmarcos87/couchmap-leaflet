@@ -50,5 +50,6 @@ module.exports = Backbone.View.extend({
   },
   remove: function() {
     this.map.remove();
+    Backbone.View.prototype.remove.call(this);
   }
 });
