@@ -32,12 +32,12 @@ module.exports = Backbone.View.extend({
       this.mode = mode;
       this.removeSubviews();
       if (this.mode=='coarse') {
-        this.subview = new this.CoarseView(_.extend(this.coarse_options || {}, {
+        this.subview = new this.CoarseView(_.extend(this.options.coarse_options || {}, {
           proxyView: this,
           collection: this.model.get('coarse_coll')
         }));
       } else {
-        this.subview = new this.FineView(_.extend(this.fine_options || {}, {
+        this.subview = new this.FineView(_.extend(this.options.fine_options || {}, {
           proxyView: this,
           collection: this.model.get('fine_coll')
         }));
