@@ -50,6 +50,7 @@ module.exports = Backbone.View.extend({
     }
   },
   remove: function() {
+    this.mapView.map.off('moveend', this.update_bbox, this);
     this.removeSubviews();
     Backbone.View.prototype.remove.call(this);
   }
