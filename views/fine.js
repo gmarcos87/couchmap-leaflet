@@ -7,10 +7,10 @@ module.exports = Backbone.View.extend({
   FineMarkerView: require('./fineMarker'),
   initialize: function(options) {
     this.proxyView = options.proxyView;
-    this.layer = L.markerClusterGroup().addTo(this.proxyView.mapView.map);
     this.subviews = {};
     this.listenTo(this.collection, 'add', this.addModel);
     this.listenTo(this.collection, 'remove', this.removeModel);
+    this.listenTo(this.collection, 'reset', this.render);
     this.render();
   },
   addModel: function(model) {
@@ -27,6 +27,8 @@ module.exports = Backbone.View.extend({
     }
   },
   render: function() {
+    this.removeSubviews();
+    this.layer = L.markerClusterGroup().addTo(this.proxyView.mapView.map);
     this.collection.each(this.addModel, this);
   },
   removeSubviews: function() {
