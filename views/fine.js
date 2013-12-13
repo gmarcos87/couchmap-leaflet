@@ -33,7 +33,10 @@ module.exports = Backbone.View.extend({
   },
   removeSubviews: function() {
     _.each(this.subviews, this.removeModel, this);
-    this.proxyView.mapView.map.removeLayer(this.layer);
+    if (this.layer) {
+      this.proxyView.mapView.map.removeLayer(this.layer);
+      this.layer = undefined;
+    }
   },
   remove: function() {
     this.removeSubviews();
