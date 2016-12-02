@@ -7,9 +7,14 @@ module.exports = function(grunt) {
     },
     // jasmine unit tests
     jasmine_node: {
-      projectRoot: 'test',
-      specNameMatcher: 'Spec',
-      forceExit: true
+     options: {
+       forceExit: true,
+       match: '.',
+       matchall: false,
+       extensions: 'js',
+       specNameMatcher: 'spec'
+     },
+     all: ['spec/']
     }
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
