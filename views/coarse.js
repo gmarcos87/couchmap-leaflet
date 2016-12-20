@@ -1,7 +1,7 @@
 var Backbone =  require('backbone');
 _ = require('underscore');
 var L = require('leaflet');
-var Lmarkercluster = require('leaflet-markercluster');
+var Lmarkercluster = require('leaflet.markercluster');
 var common = require('couchmap-common');
 
 module.exports = Backbone.View.extend({

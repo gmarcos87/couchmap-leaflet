@@ -1,7 +1,7 @@
 var Backbone =  require('backbone');
 _ = require('underscore');
 var L = require('leaflet');
-var Lmarkercluster = require('leaflet-markercluster');
+var Lmarkercluster = require('leaflet.markercluster');
 
 module.exports = Backbone.View.extend({
   FineMarkerView: require('./fineMarker'),
@@ -43,4 +43,3 @@ module.exports = Backbone.View.extend({
     Backbone.View.prototype.remove.call(this);
   }
 });
-
